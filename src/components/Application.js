@@ -5,7 +5,7 @@ import "components/Application.scss";
 import { useState } from "react";
 import DayList from "./DayList";
 import Appointment from "components/Appointment";
-import { getAppointmentsForDay } from '../helpers/selectors';
+import { getAppointmentsForDay, getInterview } from '../helpers/selectors';
 
 
 export default function Application(props) {
@@ -20,7 +20,19 @@ export default function Application(props) {
   
   const setDay = (day) => setState({ ...state, day });
   const dailyAppointments = getAppointmentsForDay(state, state.day);
-
+  const schedule = dailyAppointments.map((appointment) => {
+   console.log(appointment)
+    const interview = getInterview(state, appointment.interview);
+   
+    return (
+      <Appointment
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={appointment.interview}
+      />
+    );
+  });
  
   
 
@@ -61,9 +73,7 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {dailyAppointments.map((appointment) => (
-          <Appointment key={appointment.id} {...appointment} />
-        ))}
+       {schedule}
         <Appointment key="last" time="5pm" />
       </section>
     </main>
