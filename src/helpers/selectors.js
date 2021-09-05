@@ -7,7 +7,7 @@ export const getAppointmentsForDay = (state, day) => {
       })
     }
   })
-  return filteredAppointments
+  return filteredAppointments;
 }
 
 export const getInterview = (state, interview) => {

@@ -19,6 +19,9 @@ export default function Appointment(props) {
   const onAdd = () => {
     transition(CREATE);
   }
+  const onCancel = () => {
+    back();
+  }
 
   return (
     <article className="appointment">
@@ -31,9 +34,11 @@ export default function Appointment(props) {
         />
       )}
       {mode === CREATE && (
-        <Form>
-
-        </Form>
+        <Form
+          interviewers={[]}
+          onCancel = {onCancel}
+         
+        />
       )}
 
       {props.interview ? (

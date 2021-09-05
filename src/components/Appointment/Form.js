@@ -5,8 +5,7 @@ import InterviewerList from "../InterviewerList";
 export default function Form(props) {
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
-  //Left it as an empty array because the getInterviewersForDay selector hasn't been properly implemented yet.
-  props.interviewers = [];
+ 
   function reset() {
     setName("");
     setInterviewer(null);
