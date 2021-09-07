@@ -6,13 +6,13 @@ import  './InterviewerList.scss';
 export default function InterviewerList(props) {
   
   const interviewers = props.interviewers.map(interviewer => {    
-    console.log("interview id", interviewer.id);
+ 
     return (
     <InterviewerListItem
       key={interviewer.id}
       name={interviewer.name}
       avatar = {interviewer.avatar}
-      setInterviewer = {e => {console.log(interviewer.id); props.onChange(interviewer.id)}}
+      setInterviewer = {e => {props.onChange(interviewer.id)}}
       selected = {interviewer.id === props.value}
     />
 

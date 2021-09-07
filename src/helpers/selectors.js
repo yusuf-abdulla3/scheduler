@@ -26,6 +26,7 @@ export const getInterview = (state, interview) => {
   if (interview) {
     const interviewId = interview.interviewer;
     const interviewer = state.interviewers[interviewId];
+   
     return { ...interview, interviewer };
   }
   return null;
