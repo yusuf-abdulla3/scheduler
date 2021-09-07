@@ -20,15 +20,21 @@ export default function Application(props) {
     interviewers: {},
   });
   const { mode, transition, back } = useVisualMode();
-  
+
   const cancelInterview = (id) => {
     const appointment = {
       ...state.appointments[id],
-      interview: null
-    }; 
-  }
+      interview: null,
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+
+    return axios.delete(`/api/appointments/${id}`);
+  };
   const bookInterview = (id, interview) => {
-  
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
@@ -38,21 +44,22 @@ export default function Application(props) {
       [id]: appointment,
     };
 
-    return axios.put(`/api/appointments/${id}`, {interview})
-    .then((res) => {
-      return res;
-    })
+    return axios
+      .put(`/api/appointments/${id}`, { interview })
+      .then((res) => {
+        return res;
+      })
       .then(
         setState({
           ...state,
           appointments,
         })
-      )
+      );
   };
   const setDay = (day) => setState({ ...state, day });
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
-  console.log("DAILY APPOINTMENTS: ", dailyAppointments)
+  console.log("DAILY APPOINTMENTS: ", dailyAppointments);
   const schedule = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
 
@@ -64,7 +71,7 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
-        cancelInterview = {cancelInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
@@ -78,15 +85,16 @@ export default function Application(props) {
       axios.get(daysURL),
       axios.get(appointmentsURL),
       axios.get(interviewersURL),
-    ]).then((all) => {
-      setState((prev) => ({
-        ...prev,
-        days: all[0].data,
-        appointments: all[1].data,
-        interviewers: all[2].data,
-      }));
-    })
-    .catch((error) => console.log("ERROR: ", error))
+    ])
+      .then((all) => {
+        setState((prev) => ({
+          ...prev,
+          days: all[0].data,
+          appointments: all[1].data,
+          interviewers: all[2].data,
+        }));
+      })
+      .catch((error) => console.log("ERROR: ", error));
   }, []);
 
   return (
