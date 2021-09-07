@@ -15,7 +15,7 @@ export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-if (props.interview) console.log("INTERVIEW: ", props.interview)
+
   const onAdd = () => {
     transition(CREATE);
   }
@@ -32,6 +32,7 @@ if (props.interview) console.log("INTERVIEW: ", props.interview)
     transition(SHOW);
   }
 
+  console.log("INTERVIEW", props.interview)
   return (
     <article className="appointment">
       <Header time={props.time} />

@@ -5,7 +5,7 @@ import InterviewerList from "../InterviewerList";
 export default function Form(props) {
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
- 
+ console.log("SET INTERVIEWER: ",setInterviewer)
   function reset() {
     setName("");
     setInterviewer(null);
@@ -34,7 +34,7 @@ export default function Form(props) {
         </form>
         <InterviewerList
           interviewers={props.interviewers}
-          value={props.interviewer}
+          value={interviewer}
           onChange={setInterviewer}
         />
       </section>
