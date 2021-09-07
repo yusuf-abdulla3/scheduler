@@ -32,7 +32,9 @@ export default function Application(props) {
       [id]: appointment,
     };
 
-    return axios.delete(`/api/appointments/${id}`);
+    return axios
+    .delete(`/api/appointments/${id}`)
+    
   };
   const bookInterview = (id, interview) => {
     const appointment = {
