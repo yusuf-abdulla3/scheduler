@@ -22,6 +22,14 @@ export default function Application(props) {
       ...state.appointments[id],
       interview: { ...interview }
     };
+    // const appointments = {
+    //   ...state.appointments,
+    //   [id]: appointment
+    // };
+    // setState({
+    //   ...state,
+    //   appointments
+    // });
     console.log(id, interview);
   }
   const setDay = (day) => setState({ ...state, day });
