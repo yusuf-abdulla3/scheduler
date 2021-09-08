@@ -8,8 +8,7 @@ export default function DayListItem(props) {
     "day-list__item--selected": props.selected,
     "day-list__item--full": props.spots === 0
   });
-
-  function formatSpots() {
+  const formatSpots = () => {
     let spotsMessage = '';
     if(props.spots === 0) {
       spotsMessage = 'no spots remaining';

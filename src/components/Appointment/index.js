@@ -20,6 +20,7 @@ export default function Appointment(props) {
   const ERROR_SAVE = "ERROR_SAVE";
   const ERROR_DELETE = "ERROR_DELETE";
 
+  
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
@@ -37,20 +38,24 @@ export default function Appointment(props) {
       student: name,
       interviewer,
     };
-    transition(SAVING, true);
-    props
-    .bookInterview(props.id, interview)
-    .then(() => transition(SHOW))
-    .catch(error => transition(ERROR_SAVE, true));
+    transition(SAVING);
+    Promise.resolve(props.bookInterview(props.id, interview))
+      .then(() => transition(SHOW, true))
+      .catch((error) => {
+        transition(ERROR_SAVE, true);
+        console.log("SAVE ERROR: ", error);
+      });
   };
 
   const deleteAppointment = (id) => {
-    transition(DELETING, true);
+    transition(DELETING);
 
-    props
-    .cancelInterview(props.id)
-    .then(() => transition(SHOW))
-    .catch(error => transition(ERROR_DELETE, true));
+    Promise.resolve(props.cancelInterview(props.id))
+      .then(() => transition(EMPTY, true))
+      .catch((error) => {
+        transition(ERROR_SAVE, true);
+        console.log("SAVE ERROR: ", error);
+      });
   };
 
   return (
