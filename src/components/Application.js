@@ -12,7 +12,7 @@ import {
 import useVisualMode from "hooks/useVisualMode";
 import useApplicationData from "hooks/useApplicationData";
 
-export default function Application(props) {
+const Application = (props) => {
   const { state, setDay, bookInterview, cancelInterview } =
     useApplicationData();
   const dailyAppointments = getAppointmentsForDay(state, state.day);
@@ -57,4 +57,6 @@ export default function Application(props) {
       </section>
     </main>
   );
-}
+};
+
+export default Application;
